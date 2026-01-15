@@ -1,16 +1,15 @@
 package modelo;
 
-import java.sql.Date;
 import java.sql.Time;
 
 public class Sesion {
 
 	private int id_Sesion;
 	private Time hora_Inicio, hora_Fin;
-	private Date fecha;
+	private String fecha;
 	private int numero_Espectadores, precio_Sesion, id_Sala, id_Pelicula;
 
-	public Sesion(int id_Sesion, Time hora_Inicio, Time hora_Fin, Date fecha, int numero_Espectadores,
+	public Sesion(int id_Sesion, Time hora_Inicio, Time hora_Fin, String fecha, int numero_Espectadores,
 			int precio_Sesion, int id_Sala, int id_Pelicula) {
 		this.id_Sesion = id_Sesion;
 		this.hora_Inicio = hora_Inicio;
@@ -50,11 +49,11 @@ public class Sesion {
 		this.hora_Fin = hora_Fin;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 

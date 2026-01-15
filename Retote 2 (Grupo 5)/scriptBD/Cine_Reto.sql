@@ -1,3 +1,6 @@
+create database cine_reto collate utf8mb4_spanish_ci;
+
+use cine_reto;
 
 
 create table Sala
@@ -42,67 +45,110 @@ Numero_Personas int not null,
 ID_Sesion int not null, constraint FK_Entrada_Sesion foreign key (ID_Sesion) references Sesion(ID_Sesion) on delete cascade on update cascade,
 ID_Compra int not null, constraint FK_Entrada_Compra foreign key (ID_Compra) references Compra(ID_Compra) on delete cascade on update cascade);
 
+
 INSERT INTO Sala (Nombre) VALUES
-('Sala 1'),
-('Sala 2'),
-('Sala 3'),
-('Sala 4'),
-('Sala 5'),
-('Sala IMAX'),
-('Sala VIP'),
-('Sala Infantil');
+('Sala 1'),('Sala 2'),('Sala 3'),('Sala 4'),('Sala 5');
+
 
 INSERT INTO Pelicula (Duracion, Genero, Precio_Base, Nombre_Pelicula) VALUES
-(120, 'Acción', 7.50, 'Misión Final'),
-(95, 'Comedia', 6.50, 'Risas sin Fin'),
-(140, 'Drama', 8.00, 'El Último Viaje'),
-(110, 'Terror', 7.00, 'La Casa Oscura'),
-(130, 'Ciencia Ficción', 8.50, 'Galaxia Perdida'),
-(100, 'Animación', 6.00, 'El Dragón Azul'),
-(150, 'Épica', 9.00, 'Reinos en Guerra'),
-(105, 'Romance', 6.75, 'Amor en París');
+(120,'Acción',8.50,'Rápidos y Furiosos 10'),
+(95,'Comedia',7.00,'La Gran Risa'),
+(150,'Drama',9.00,'El Camino Infinito'),
+(110,'Terror',6.50,'Noche de Terror'),
+(130,'Animación',7.50,'Aventuras en el Bosque'),
+(105,'Acción',8.00,'Misión Imposible: Fallout'),
+(100,'Comedia',7.50,'Superbad: La Fiesta Continúa'),
+(125,'Drama',9.50,'La Lista Infinita'),
+(115,'Terror',6.75,'El Refugio del Miedo'),
+(90,'Animación',7.25,'La Gran Aventura de Max'),
+(140,'Acción',9.00,'Guardianes de la Galaxia Vol.3'),
+(95,'Comedia',6.75,'Locuras en la Oficina'),
+(130,'Drama',9.00,'Ecos del Pasado'),
+(100,'Terror',6.50,'Sombras Nocturnas'),
+(110,'Animación',7.00,'Mundo de Colores'),
+(125,'Acción',8.50,'El Último Combate'),
+(105,'Comedia',7.00,'Risas y Más Risas'),
+(135,'Drama',9.50,'Historias Cruzadas'),
+(120,'Terror',6.75,'El Laberinto del Miedo'),
+(95,'Animación',7.25,'Pequeños Héroes');
+
 
 INSERT INTO Cliente (DNI, Email, Nombre_Apellidos, Contraseña) VALUES
-('12345678A', 'ana@email.com', 'Ana López García', AES_ENCRYPT('Ana1234', 'cineadmin')),
-('23456789B', 'juan@email.com', 'Juan Pérez Ruiz', AES_ENCRYPT('Juan5678', 'cineadmin')),
-('34567890C', 'maria@email.com', 'María Sánchez Gil', AES_ENCRYPT('Maria2025', 'cineadmin')),
-('45678901D', 'luis@email.com', 'Luis Martín Torres', AES_ENCRYPT('LuisPass', 'cineadmin')),
-('56789012E', 'laura@email.com', 'Laura Gómez Díaz', AES_ENCRYPT('Laura#99', 'cineadmin')),
-('67890123F', 'carlos@email.com', 'Carlos Romero Vega', AES_ENCRYPT('Carlos456', 'cineadmin')),
-('78901234G', 'elena@email.com', 'Elena Navarro León', AES_ENCRYPT('ElenaKey', 'cineadmin')),
-('89012345H', 'david@email.com', 'David Molina Cruz', AES_ENCRYPT('David777', 'cineadmin'));
+('12345678A','juan.perez@email.com','Juan Pérez',AES_ENCRYPT('juan123','cineadmin')),
+('87654321B','maria.gomez@email.com','María Gómez',AES_ENCRYPT('maria456','cineadmin')),
+('45678912C','luis.sanchez@email.com','Luis Sánchez',AES_ENCRYPT('luis789','cineadmin')),
+('23456789D','ana.lopez@email.com','Ana López',AES_ENCRYPT('ana321','cineadmin')),
+('34567891E','carlos.martin@email.com','Carlos Martín',AES_ENCRYPT('carlos123','cineadmin')),
+('56789123F','laura.garcia@email.com','Laura García',AES_ENCRYPT('laura456','cineadmin')),
+('67891234G','pablo.rodriguez@email.com','Pablo Rodríguez',AES_ENCRYPT('pablo789','cineadmin'));
+
+
+INSERT INTO Sesion (Hora_Inicio, Hora_Fin, Fecha, Numero_Espectadores_Actuales, Precio_Sesion, ID_Sala, ID_Pelicula) VALUES
+
+('10:00:00','12:00:00','2026-01-15',50,8.50,1,1),
+('12:15:00','14:15:00','2026-01-15',45,7.00,1,2),
+('14:30:00','16:45:00','2026-01-15',60,9.00,1,3),
+('17:00:00','18:50:00','2026-01-15',55,6.50,1,4),
+('19:00:00','21:10:00','2026-01-15',70,7.50,1,5),
+
+('10:00:00','12:00:00','2026-01-15',50,8.50,2,6),
+('12:15:00','14:15:00','2026-01-15',45,7.00,2,7),
+('14:30:00','16:45:00','2026-01-15',60,9.00,2,8),
+('17:00:00','18:50:00','2026-01-15',55,6.50,2,9),
+('19:00:00','21:10:00','2026-01-15',70,7.50,2,10),
+
+('10:00:00','12:00:00','2026-01-15',50,8.50,3,11),
+('12:15:00','14:15:00','2026-01-15',45,7.00,3,12),
+('14:30:00','16:45:00','2026-01-15',60,9.00,3,13),
+('17:00:00','18:50:00','2026-01-15',55,6.50,3,14),
+('19:00:00','21:10:00','2026-01-15',70,7.50,3,15),
+
+('10:00:00','12:00:00','2026-01-15',50,8.50,4,16),
+('12:15:00','14:15:00','2026-01-15',45,7.00,4,17),
+('14:30:00','16:45:00','2026-01-15',60,9.00,4,18),
+('17:00:00','18:50:00','2026-01-15',55,6.50,4,19),
+('19:00:00','21:10:00','2026-01-15',70,7.50,4,20),
+
+('10:00:00','12:00:00','2026-01-15',50,8.50,5,1),
+('12:15:00','14:15:00','2026-01-15',45,7.00,5,2),
+('14:30:00','16:45:00','2026-01-15',60,9.00,5,3),
+('17:00:00','18:50:00','2026-01-15',55,6.50,5,4),
+('19:00:00','21:10:00','2026-01-15',70,7.50,5,5);
+
+
 
 INSERT INTO Compra (Precio_Base, Fecha_Hora, Descuento, DNI) VALUES
-(15.00, '2025-01-10 18:30:00', 20,  '12345678A'),
-(12.00, '2025-01-11 19:00:00', NULL,'23456789B'),
-(20.00, '2025-01-12 20:15:00', 30,  '34567890C'),
-(10.00, '2025-01-13 17:45:00', NULL,'45678901D'),
-(18.00, '2025-01-14 21:00:00', 30,  '56789012E'),
-(14.00, '2025-01-15 18:00:00', 20,  '67890123F'),
-(16.00, '2025-01-16 20:30:00', NULL,'78901234G'),
-(22.00, '2025-01-17 22:00:00', 30,  '89012345H');
+(15.50,'2026-01-15 10:00:00',20.0,'12345678A');
 
-INSERT INTO Sesion 
-(Hora_Inicio, Hora_Fin, Fecha, Numero_Espectadores_Actuales, Precio_Sesion, ID_Sala, ID_Pelicula) VALUES
-('16:00:00', '18:00:00', '2025-01-20', 50, 7.50, 1, 1),
-('18:30:00', '20:05:00', '2025-01-20', 60, 6.50, 2, 2),
-('20:00:00', '22:20:00', '2025-01-20', 45, 8.00, 3, 3),
-('22:30:00', '00:20:00', '2025-01-20', 30, 7.00, 4, 4),
-('17:00:00', '19:10:00', '2025-01-21', 70, 8.50, 5, 5),
-('16:30:00', '18:10:00', '2025-01-21', 80, 6.00, 8, 6),
-('19:00:00', '21:30:00', '2025-01-21', 40, 9.00, 6, 7),
-('21:00:00', '22:45:00', '2025-01-21', 55, 6.75, 7, 8);
+INSERT INTO Entrada (Precio_Entrada, Descuento, Numero_Personas, ID_Sesion, ID_Compra) VALUES
+(8.50,20.0,1,1,1),
+(7.00,20.0,1,2,1);
 
-INSERT INTO Entrada 
-(Precio_Entrada, Descuento, Numero_Personas, ID_Sesion, ID_Compra) VALUES
-(7.50, 20,   2, 1, 1),
-(6.50, NULL, 1, 2, 2),
-(8.00, 30,   3, 3, 3),
-(7.00, NULL, 1, 4, 4),
-(8.50, 20,   2, 5, 5),
-(6.00, 30,   4, 6, 6),
-(9.00, 20,   2, 7, 7),
-(6.75, 30,   3, 8, 8);
+INSERT INTO Compra (Precio_Base, Fecha_Hora, Descuento, DNI) VALUES
+(22.00,'2026-01-15 12:00:00',30.0,'87654321B');
 
+INSERT INTO Entrada (Precio_Entrada, Descuento, Numero_Personas, ID_Sesion, ID_Compra) VALUES
+(7.50,30.0,1,3,2),
+(6.50,30.0,1,4,2),
+(8.00,30.0,1,5,2);
 
+INSERT INTO Compra (Precio_Base, Fecha_Hora, Descuento, DNI) VALUES
+(8.50,'2026-01-15 14:00:00',0.0,'45678912C');
 
+INSERT INTO Entrada (Precio_Entrada, Descuento, Numero_Personas, ID_Sesion, ID_Compra) VALUES
+(8.50,0.0,1,6,3);
+
+INSERT INTO Compra (Precio_Base, Fecha_Hora, Descuento, DNI) VALUES
+(17.00,'2026-01-15 16:00:00',0.0,'23456789D');
+
+INSERT INTO Entrada (Precio_Entrada, Descuento, Numero_Personas, ID_Sesion, ID_Compra) VALUES
+(8.50,0.0,1,7,4),
+(8.50,0.0,1,7,4);
+
+INSERT INTO Compra (Precio_Base, Fecha_Hora, Descuento, DNI) VALUES
+(25.50,'2026-01-15 18:00:00',30.0,'12345678A');
+
+INSERT INTO Entrada (Precio_Entrada, Descuento, Numero_Personas, ID_Sesion, ID_Compra) VALUES
+(8.50,30.0,1,8,5),
+(7.25,30.0,1,9,5),
+(9.75,30.0,1,10,5);
