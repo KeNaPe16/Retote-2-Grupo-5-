@@ -8,7 +8,7 @@ public class Controlador {
 
 	public static Scanner sc = new Scanner(System.in);
 
-	public static int pedirNumeroEntero() {
+	public int pedirNumeroEntero() {
 		// Valores ha tener en cuenta:
 		boolean numeroValido = false;
 		int numero = 0;
@@ -27,7 +27,7 @@ public class Controlador {
 		return numero;
 	}
 
-	public static int pedirNumeroEnteroRango(int minimo, int maximo) {
+	public int pedirNumeroEnteroRango(int minimo, int maximo) {
 		// Valores ha tener en cuenta:
 		boolean numeroValido = false;
 		int numero = 0;
@@ -45,7 +45,7 @@ public class Controlador {
 		return numero;
 	}
 
-	public static int validarID() {
+	public int validarID() {
 		// Valores ha tener en cuenta, empezamos por uno inválido normalmente
 		int codigo = 001;
 
@@ -70,11 +70,11 @@ public class Controlador {
 		// El admin sabrá que va porque no le dejará seguir hasta que de un ID válido
 	}
 
-	public static double pedirNumeroComa() {
-		//Valores ha tener en cuenta:
+	public double pedirNumeroComa() {
+		// Valores ha tener en cuenta:
 		boolean numeroValido = false;
 		double numero = 0.0;
-		
+
 		// Bucle do-while hasta poner un número con o sin coma válido
 		// Bueno, sin coma, porque el admin deberá poner punto en vez de coma
 		do {
@@ -90,18 +90,18 @@ public class Controlador {
 		return numero;
 	}
 
-	public static String pedirString() {
+	public String pedirString() {
 //		System.out.println("Introduzca el nombre del nuevo producto:");
 		// El admin le pondrá el nombre que quiera
 		String recibido = sc.nextLine();
 		return recibido;
 
 	}
-	
-	public static double redondear(double numero, int cantidadComa) {
-	   		
-	    BigDecimal bd = BigDecimal.valueOf(numero);
-	    bd = bd.setScale(cantidadComa, RoundingMode.HALF_UP);
-	    return bd.doubleValue();
+
+	public double redondear(double numero, int cantidadComa) {
+
+		BigDecimal bd = BigDecimal.valueOf(numero);
+		bd = bd.setScale(cantidadComa, RoundingMode.HALF_UP);
+		return bd.doubleValue();
 	}
 }
