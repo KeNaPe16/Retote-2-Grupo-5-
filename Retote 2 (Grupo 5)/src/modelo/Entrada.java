@@ -68,9 +68,8 @@ public class Entrada {
 
 	@Override
 	public String toString() {
-		return "Entrada [id_Entrada=" + id_Entrada + ", precio_Entrada=" + precio_Entrada + ", descuento=" + descuento
-				+ ", numero_Espectadores=" + numero_Personas + ", id_Sesion=" + id_Sesion + ", id_Compra=" + id_Compra
-				+ "]";
+		return "Entrada (numero: " + this.id_Entrada + ") para la sesion numero: " + this.id_Sesion + "\nValida para " + this.numero_Personas
+				+ " personas \nComprada por " + this.precio_Entrada + "€ con un descuento de " + this.descuento + "%";
 	}
 
 }

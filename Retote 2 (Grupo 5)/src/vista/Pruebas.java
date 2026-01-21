@@ -1,10 +1,16 @@
 package vista;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import controlador.Controlador;
 import controlador.ControladorBD;
+import controlador.ControladorFicheros;
 import modelo.Cliente;
+import modelo.Compra;
+import modelo.CompraID;
+import modelo.Entrada;
+import modelo.EntradaID;
 
 public class Pruebas {
 
@@ -83,6 +89,55 @@ public class Pruebas {
 
 	public static void menuPeliculas(ControladorBD controladorBD, Controlador controladorES, Cliente usuario) {
 
+	}
+
+	
+	public static void juntarDatos(ControladorBD controladorBD, Controlador controladorES,
+			ControladorFicheros controladorFi, ArrayList<Integer> partesEntrada, Timestamp fecha_hora,
+			String dniCliente, int precio_Compra, int descuento) {
+
+		ArrayList<CompraID> idsCompra = controladorBD.datosCompraID();
+		ArrayList<EntradaID> idsEntrada = controladorBD.datosEntradaID();
+		int ultimoIDCompra = idsCompra.getLast().getId_Compra() + 1;
+		int ultimoIDEntrada = idsEntrada.getLast().getId_Entrada();
+
+		Compra compraJuntada = new Compra();
+		ArrayList<Entrada> listaEntradasJuntada = new ArrayList<Entrada>();
+
+		crearCompra(compraJuntada, ultimoIDCompra, dniCliente, descuento, precio_Compra, fecha_hora);
+		crearlistaEntrada(listaEntradasJuntada, partesEntrada, ultimoIDEntrada, ultimoIDCompra);
+		grabarCompra(controladorBD, controladorES, controladorFi, compraJuntada, listaEntradasJuntada);
+	}
+
+	public static void crearCompra(Compra compraJuntada, int ultimoIDCompra, String dniCliente, int descuento,
+			int precio_Compra, Timestamp fecha_hora) {
+		compraJuntada.setId_Compra(ultimoIDCompra);
+		compraJuntada.setDni(dniCliente);
+		compraJuntada.setDescuento(descuento);
+		compraJuntada.setFecha_hora(fecha_hora);
+		compraJuntada.setPrecio_Compra(precio_Compra);
+	}
+
+	public static ArrayList<Entrada> crearlistaEntrada(ArrayList<Entrada> listaEntradasJuntada,
+			ArrayList<Integer> partesEntrada, int ultimoIDEntrada, int ultimoIDCompra) {
+		int contador = 1;
+		for (int i = 0; i < partesEntrada.size(); i += 4) {// 0-Precio 1-Descuento 2-Personas 3-Sesion
+			Entrada nuevaEntrada = new Entrada();
+			nuevaEntrada.setId_Entrada(ultimoIDEntrada + contador);
+			nuevaEntrada.setPrecio_Entrada(partesEntrada.get(i));
+			nuevaEntrada.setDescuento(partesEntrada.get(i + 1));
+			nuevaEntrada.setNumero_Personas(partesEntrada.get(i + 2));
+			nuevaEntrada.setId_Sesion(partesEntrada.get(i + 3));
+			nuevaEntrada.setId_Compra(ultimoIDCompra);
+			listaEntradasJuntada.add(nuevaEntrada);
+			contador++;
+		}
+		return listaEntradasJuntada;
+	}
+
+	public static void grabarCompra(ControladorBD controladorBD, Controlador controladorES,
+			ControladorFicheros controladorFi, Compra compraAGrabar, ArrayList<Entrada> entradasAGrabar) {
+		controladorFi.escribirGrabarCompra("ComprasGrabadas", compraAGrabar, entradasAGrabar);
 	}
 
 }

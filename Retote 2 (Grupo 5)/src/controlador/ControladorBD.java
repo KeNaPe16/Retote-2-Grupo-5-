@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import modelo.Cliente;
+import modelo.CompraID;
+import modelo.EntradaID;
 
 public class ControladorBD {
 
@@ -80,5 +82,51 @@ public class ControladorBD {
 			e.printStackTrace();
 		}
 		return clientes;
+	}
+
+	public ArrayList<CompraID> datosCompraID() {
+		String query = "SELECT ID_Compra FROM Compra ORDER BY ID_Compra ASC";
+		ArrayList<CompraID> idsCompra = new ArrayList<CompraID>();
+
+		try {
+			Statement consulta = conexion.createStatement();
+			ResultSet resultado = consulta.executeQuery(query);
+
+			while (resultado.next()) {
+				int id_Compra = resultado.getInt(1);
+
+				CompraID nuevoIDCompra = new CompraID(id_Compra);
+				idsCompra.add(nuevoIDCompra);
+			}
+
+			consulta.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return idsCompra;
+	}
+
+	public ArrayList<EntradaID> datosEntradaID() {
+		String query = "SELECT ID_Entrada FROM Entrada ORDER BY ID_Entrada ASC";
+		ArrayList<EntradaID> idsEntradas = new ArrayList<EntradaID>();
+
+		try {
+			Statement consulta = conexion.createStatement();
+			ResultSet resultado = consulta.executeQuery(query);
+
+			while (resultado.next()) {
+				int id_Sesion = resultado.getInt(1);
+
+				EntradaID nuevoIDSesion = new EntradaID(id_Sesion);
+				idsEntradas.add(nuevoIDSesion);
+			}
+
+			consulta.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return idsEntradas;
 	}
 }
