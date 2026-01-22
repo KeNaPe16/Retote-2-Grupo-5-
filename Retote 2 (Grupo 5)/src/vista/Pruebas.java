@@ -18,9 +18,9 @@ public class Pruebas {
 		ControladorBD controladorBD = new ControladorBD("cine_reto");
 		boolean conexionConExito = controladorBD.iniciarConexion();
 		if (conexionConExito) {
-			System.out.println("Se realizo la conexion con exito");
+			System.out.println("Se realizó la conexion con exito");
 		} else {
-			System.out.println("No se realizo la conexion con exito");
+			System.out.println("No se realizó la conexion con exito");
 		}
 		menuEspera(controladorBD, controladorES);
 		controladorBD.cerrarConexion();
