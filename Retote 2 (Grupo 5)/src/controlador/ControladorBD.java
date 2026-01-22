@@ -8,8 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import modelo.Cliente;
-import modelo.CompraID;
-import modelo.EntradaID;
+
 
 public class ControladorBD {
 
@@ -84,19 +83,16 @@ public class ControladorBD {
 		return clientes;
 	}
 
-	public ArrayList<CompraID> datosCompraID() {
-		String query = "SELECT ID_Compra FROM Compra ORDER BY ID_Compra ASC";
-		ArrayList<CompraID> idsCompra = new ArrayList<CompraID>();
-
+	public int datosUltimoIDCompra() {
+		String query = "SELECT ID_Compra FROM Compra ORDER BY ID_Compra DESC limit 1";
+		int id_Compra = -1;
 		try {
 			Statement consulta = conexion.createStatement();
 			ResultSet resultado = consulta.executeQuery(query);
 
 			while (resultado.next()) {
-				int id_Compra = resultado.getInt(1);
+				id_Compra = resultado.getInt(1);
 
-				CompraID nuevoIDCompra = new CompraID(id_Compra);
-				idsCompra.add(nuevoIDCompra);
 			}
 
 			consulta.close();
@@ -104,22 +100,19 @@ public class ControladorBD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return idsCompra;
+		return id_Compra;
 	}
 
-	public ArrayList<EntradaID> datosEntradaID() {
-		String query = "SELECT ID_Entrada FROM Entrada ORDER BY ID_Entrada ASC";
-		ArrayList<EntradaID> idsEntradas = new ArrayList<EntradaID>();
-
+	public int datosUltimoIDEntrada() {
+		String query = "SELECT ID_Entrada FROM Entrada ORDER BY ID_Entrada DESC limit 1";
+		int id_Sesion = -1;
 		try {
 			Statement consulta = conexion.createStatement();
 			ResultSet resultado = consulta.executeQuery(query);
 
 			while (resultado.next()) {
-				int id_Sesion = resultado.getInt(1);
+				id_Sesion = resultado.getInt(1);
 
-				EntradaID nuevoIDSesion = new EntradaID(id_Sesion);
-				idsEntradas.add(nuevoIDSesion);
 			}
 
 			consulta.close();
@@ -127,6 +120,6 @@ public class ControladorBD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return idsEntradas;
+		return id_Sesion;
 	}
 }

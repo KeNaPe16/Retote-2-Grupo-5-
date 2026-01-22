@@ -8,18 +8,16 @@ import controlador.ControladorBD;
 import controlador.ControladorFicheros;
 import modelo.Cliente;
 import modelo.Compra;
-import modelo.CompraID;
 import modelo.Entrada;
-import modelo.EntradaID;
 
 public class Pruebas {
 
 	public static void main(String[] args) {
-
-		conexionBD();
+		Pruebas principal = new Pruebas();
+		principal.conexionBD();
 	}
 
-	public static void conexionBD() {
+	public void conexionBD() {
 		Controlador controladorES = new Controlador();
 		ControladorBD controladorBD = new ControladorBD("cine_reto");
 		boolean conexionConExito = controladorBD.iniciarConexion();
@@ -33,7 +31,14 @@ public class Pruebas {
 
 	}
 
-	public static void menuEspera(ControladorBD controladorBD, Controlador controladorES) {
+	/**
+	 * Menu de espera de la aplicacion, el cual envia el usuario al login al pulsar
+	 * enter.
+	 * 
+	 * @param controladorBD
+	 * @param controladorES
+	 */
+	public void menuEspera(ControladorBD controladorBD, Controlador controladorES) {
 
 		boolean usuarioEncontrado = false;
 
@@ -49,7 +54,7 @@ public class Pruebas {
 		}
 	}
 
-	public static Cliente login(ControladorBD controladorBD, Controlador controladorES) {
+	public Cliente login(ControladorBD controladorBD, Controlador controladorES) {
 		Cliente clienteCorrecto = null;
 		ArrayList<Cliente> clientes = controladorBD.datosCliente();
 		boolean reintentar = true;
@@ -87,38 +92,72 @@ public class Pruebas {
 		return clienteCorrecto;
 	}
 
-	public static void menuPeliculas(ControladorBD controladorBD, Controlador controladorES, Cliente usuario) {
+	public void menuPeliculas(ControladorBD controladorBD, Controlador controladorES, Cliente usuario) {
 
 	}
 
-	
-	public static void juntarDatos(ControladorBD controladorBD, Controlador controladorES,
-			ControladorFicheros controladorFi, ArrayList<Integer> partesEntrada, Timestamp fecha_hora,
-			String dniCliente, int precio_Compra, int descuento) {
+	/**
+	 * Metodo que junta todos los datos necesarios para generar una compra y sus
+	 * entradas
+	 * 
+	 * @param controladorBD
+	 * @param controladorES
+	 * @param controladorFi
+	 * @param partesEntrada
+	 * @param fecha_hora
+	 * @param dniCliente
+	 * @param precio_Compra
+	 * @param descuento
+	 */
+	public void juntarDatos(ControladorBD controladorBD, Controlador controladorES, ControladorFicheros controladorFi,
+			ArrayList<Integer> partesEntrada, Timestamp fecha_hora, Cliente cliente, int precio_Compra, int descuento) {
 
-		ArrayList<CompraID> idsCompra = controladorBD.datosCompraID();
-		ArrayList<EntradaID> idsEntrada = controladorBD.datosEntradaID();
-		int ultimoIDCompra = idsCompra.getLast().getId_Compra() + 1;
-		int ultimoIDEntrada = idsEntrada.getLast().getId_Entrada();
+		int ultimoIDCompra = controladorBD.datosUltimoIDCompra() + 1;
+		int ultimoIDEntrada = controladorBD.datosUltimoIDEntrada();
 
 		Compra compraJuntada = new Compra();
 		ArrayList<Entrada> listaEntradasJuntada = new ArrayList<Entrada>();
+		String dniCliente = cliente.getDNI();
 
-		crearCompra(compraJuntada, ultimoIDCompra, dniCliente, descuento, precio_Compra, fecha_hora);
-		crearlistaEntrada(listaEntradasJuntada, partesEntrada, ultimoIDEntrada, ultimoIDCompra);
-		grabarCompra(controladorBD, controladorES, controladorFi, compraJuntada, listaEntradasJuntada);
+		compraJuntada = crearCompra(compraJuntada, ultimoIDCompra, dniCliente, descuento, precio_Compra, fecha_hora);
+		listaEntradasJuntada = crearlistaEntrada(listaEntradasJuntada, partesEntrada, ultimoIDEntrada, ultimoIDCompra);
+		grabarCompra(controladorBD, controladorES, controladorFi, compraJuntada, listaEntradasJuntada, cliente);
 	}
 
-	public static void crearCompra(Compra compraJuntada, int ultimoIDCompra, String dniCliente, int descuento,
+	/**
+	 * Metodo para crear una compra, el cual pide todos los componentes necesarios
+	 * para crearla
+	 * 
+	 * @param compraJuntada
+	 * @param ultimoIDCompra
+	 * @param dniCliente
+	 * @param descuento
+	 * @param precio_Compra
+	 * @param fecha_hora
+	 * @return devuelve la compra que se crea con los datos proporcionados
+	 */
+	public Compra crearCompra(Compra compraJuntada, int ultimoIDCompra, String dniCliente, int descuento,
 			int precio_Compra, Timestamp fecha_hora) {
 		compraJuntada.setId_Compra(ultimoIDCompra);
 		compraJuntada.setDni(dniCliente);
 		compraJuntada.setDescuento(descuento);
 		compraJuntada.setFecha_hora(fecha_hora);
 		compraJuntada.setPrecio_Compra(precio_Compra);
+		return compraJuntada;
 	}
 
-	public static ArrayList<Entrada> crearlistaEntrada(ArrayList<Entrada> listaEntradasJuntada,
+	/**
+	 * Metodo de creacion de una lista de entradas, el cual pide todos los
+	 * componentes necesarios para crearla.
+	 * 
+	 * @param listaEntradasJuntada
+	 * @param partesEntrada
+	 * @param ultimoIDEntrada
+	 * @param ultimoIDCompra
+	 * @return devuelve un ArrayList de entradas, debido a que en una compra puede
+	 *         haber mas de una compra.
+	 */
+	public ArrayList<Entrada> crearlistaEntrada(ArrayList<Entrada> listaEntradasJuntada,
 			ArrayList<Integer> partesEntrada, int ultimoIDEntrada, int ultimoIDCompra) {
 		int contador = 1;
 		for (int i = 0; i < partesEntrada.size(); i += 4) {// 0-Precio 1-Descuento 2-Personas 3-Sesion
@@ -135,9 +174,19 @@ public class Pruebas {
 		return listaEntradasJuntada;
 	}
 
-	public static void grabarCompra(ControladorBD controladorBD, Controlador controladorES,
-			ControladorFicheros controladorFi, Compra compraAGrabar, ArrayList<Entrada> entradasAGrabar) {
-		controladorFi.escribirGrabarCompra("ComprasGrabadas", compraAGrabar, entradasAGrabar);
+	/**
+	 * Metodo que utiliza al controlador para crear el fichero, apartado para
+	 * claridad.
+	 * 
+	 * @param controladorBD
+	 * @param controladorES
+	 * @param controladorFi
+	 * @param compraAGrabar
+	 * @param entradasAGrabar
+	 */
+	public void grabarCompra(ControladorBD controladorBD, Controlador controladorES, ControladorFicheros controladorFi,
+			Compra compraAGrabar, ArrayList<Entrada> entradasAGrabar, Cliente cliente) {
+		controladorFi.escribirGrabarCompra("ComprasGrabadas", compraAGrabar, entradasAGrabar, cliente);
 	}
 
 }

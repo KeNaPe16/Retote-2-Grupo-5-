@@ -6,11 +6,10 @@
 //import controlador.ControladorFicheros;
 //import controlador.Controlador;
 //import controlador.ControladorBD;
+//import modelo.Cliente;
 //import modelo.Compra;
-//import modelo.CompraID; 
 //import modelo.Entrada;
-//import modelo.EntradaID;
-
+//
 //public class PruebaGrabar {
 //
 //	public static void main(String[] args) {
@@ -24,20 +23,21 @@
 //			ControladorFicheros controladorFi) {
 //
 //		boolean conexionConExito = controladorBD.iniciarConexion();
+//		PruebaGrabar prueba = new PruebaGrabar();
 //		if (conexionConExito) {
 //			System.out.println("Se realizo la conexion con exito");
 //		} else {
 //			System.out.println("No se realizo la conexion con exito");
 //		}
-//		pruebaDatos(controladorBD, controladorES, controladorFi);
+//		prueba.pruebaDatos(controladorBD, controladorES, controladorFi);
 //		controladorBD.cerrarConexion();
 //
 //	}
 //
-//	public static void pruebaDatos(ControladorBD controladorBD, Controlador controladorES,
-//			ControladorFicheros controladorFi) {
+//	public void pruebaDatos(ControladorBD controladorBD, Controlador controladorES, ControladorFicheros controladorFi) {
+//
 //		ArrayList<Integer> partesEntradaPrueba = new ArrayList<Integer>();// 0-Precio 1-Descuento 2-Personas 3-Sesion
-//		partesEntradaPrueba.add(20); // entrada 1
+//		partesEntradaPrueba.add(30); // entrada 1
 //		partesEntradaPrueba.add(20);
 //		partesEntradaPrueba.add(1);
 //		partesEntradaPrueba.add(9);
@@ -48,41 +48,40 @@
 //		partesEntradaPrueba.add(7);
 //
 //		Timestamp fecha_hora = new Timestamp(System.currentTimeMillis());
-//		String dniCliente = "12345678A";
-//		int precio_Compra = 50;
+//		Cliente cliente = new Cliente("01234567K", "marta.alvarez@example.com", "Marta Álvarez", "martita");
+//		int precio_Compra = 60;
 //		int descuento = 20;
 //
-//		juntarDatos(controladorBD, controladorES, controladorFi, partesEntradaPrueba, fecha_hora, dniCliente,
+//		juntarDatos(controladorBD, controladorES, controladorFi, partesEntradaPrueba, fecha_hora, cliente,
 //				precio_Compra, descuento);
 //	}
 //
-//	public static void juntarDatos(ControladorBD controladorBD, Controlador controladorES,
-//			ControladorFicheros controladorFi, ArrayList<Integer> partesEntrada, Timestamp fecha_hora,
-//			String dniCliente, int precio_Compra, int descuento) {
+//	public void juntarDatos(ControladorBD controladorBD, Controlador controladorES, ControladorFicheros controladorFi,
+//			ArrayList<Integer> partesEntrada, Timestamp fecha_hora, Cliente cliente, int precio_Compra, int descuento) {
 //
-//		ArrayList<CompraID> idsCompra = controladorBD.datosCompraID();
-//		ArrayList<EntradaID> idsEntrada = controladorBD.datosEntradaID();
-//		int ultimoIDCompra = idsCompra.getLast().getId_Compra() + 1;
-//		int ultimoIDEntrada = idsEntrada.getLast().getId_Entrada();
+//		int ultimoIDCompra = controladorBD.datosUltimoIDCompra() + 1;
+//		int ultimoIDEntrada = controladorBD.datosUltimoIDEntrada();
 //
 //		Compra compraJuntada = new Compra();
 //		ArrayList<Entrada> listaEntradasJuntada = new ArrayList<Entrada>();
+//		String dniCliente = cliente.getDNI();
 //
-//		crearCompra(compraJuntada, ultimoIDCompra, dniCliente, descuento, precio_Compra, fecha_hora);
-//		crearlistaEntrada(listaEntradasJuntada, partesEntrada, ultimoIDEntrada, ultimoIDCompra);
-//		grabarCompra(controladorBD, controladorES, controladorFi, compraJuntada, listaEntradasJuntada);
+//		compraJuntada = crearCompra(compraJuntada, ultimoIDCompra, dniCliente, descuento, precio_Compra, fecha_hora);
+//		listaEntradasJuntada = crearlistaEntrada(listaEntradasJuntada, partesEntrada, ultimoIDEntrada, ultimoIDCompra);
+//		grabarCompra(controladorBD, controladorES, controladorFi, compraJuntada, listaEntradasJuntada, cliente);
 //	}
 //
-//	public static void crearCompra(Compra compraJuntada, int ultimoIDCompra, String dniCliente, int descuento,
+//	public Compra crearCompra(Compra compraJuntada, int ultimoIDCompra, String dniCliente, int descuento,
 //			int precio_Compra, Timestamp fecha_hora) {
 //		compraJuntada.setId_Compra(ultimoIDCompra);
 //		compraJuntada.setDni(dniCliente);
 //		compraJuntada.setDescuento(descuento);
 //		compraJuntada.setFecha_hora(fecha_hora);
 //		compraJuntada.setPrecio_Compra(precio_Compra);
+//		return compraJuntada;
 //	}
 //
-//	public static ArrayList<Entrada> crearlistaEntrada(ArrayList<Entrada> listaEntradasJuntada,
+//	public ArrayList<Entrada> crearlistaEntrada(ArrayList<Entrada> listaEntradasJuntada,
 //			ArrayList<Integer> partesEntrada, int ultimoIDEntrada, int ultimoIDCompra) {
 //		int contador = 1;
 //		for (int i = 0; i < partesEntrada.size(); i += 4) {// 0-Precio 1-Descuento 2-Personas 3-Sesion
@@ -99,9 +98,9 @@
 //		return listaEntradasJuntada;
 //	}
 //
-//	public static void grabarCompra(ControladorBD controladorBD, Controlador controladorES,
-//			ControladorFicheros controladorFi, Compra compraAGrabar, ArrayList<Entrada> entradasAGrabar) {
-//		controladorFi.escribirGrabarCompra("ComprasGrabadas", compraAGrabar, entradasAGrabar);
+//	public void grabarCompra(ControladorBD controladorBD, Controlador controladorES, ControladorFicheros controladorFi,
+//			Compra compraAGrabar, ArrayList<Entrada> entradasAGrabar, Cliente cliente) {
+//		controladorFi.escribirGrabarCompra("ComprasGrabadas", compraAGrabar, entradasAGrabar, cliente);
 //	}
 //
 //}

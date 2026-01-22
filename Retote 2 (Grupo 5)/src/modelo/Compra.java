@@ -64,7 +64,7 @@ public class Compra {
 	@Override
 	public String toString() {
 		return "Compra (numero: " + this.id_Compra + ") de " + this.precio_Compra + "€ con un descuento de "
-				+ this.descuento + "\nRealizada por: " + this.dni + " en el " + this.fecha_hora;
+				+ this.descuento + "\nRealizada en el " + this.fecha_hora;
 	}
 
 }

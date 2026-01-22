@@ -49,8 +49,7 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [id_Cliente=" + dni + ", email=" + email + ", nombre_Apellidos=" + nombre_Apellidos
-				+ ", contraseña=" + contraseña + "]";
+		return "cliente: " + this.nombre_Apellidos + " con el email: " + this.email + " y el dni: " + this.dni;
 	}
 
 }

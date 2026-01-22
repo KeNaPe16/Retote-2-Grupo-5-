@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import modelo.Compra;
 import modelo.Entrada;
+import modelo.Cliente;
 
 public class ControladorFicheros {
 
@@ -30,12 +31,18 @@ public class ControladorFicheros {
 	 * @param personas      -> Lista con los datos que queremos guardar en el
 	 *                      fichero
 	 */
-	public void escribirGrabarCompra(String nombreFichero, Compra compra, ArrayList<Entrada> entradasAGrabar) {
+	public void escribirGrabarCompra(String nombreFichero, Compra compra, ArrayList<Entrada> entradasAGrabar,
+			Cliente cliente) {
 
 		try {
-			BufferedWriter escribirFichero = new BufferedWriter(new FileWriter(ruta + nombreFichero));
-			escribirFichero.write(compra.toString());
+			BufferedWriter escribirFichero = new BufferedWriter(new FileWriter(ruta + nombreFichero + compra.getFecha_hora().getTime()));
+			escribirFichero.write("-------------------");
 			escribirFichero.newLine();
+			escribirFichero.write(compra.toString());
+			escribirFichero.write(".");
+			escribirFichero.newLine();
+			escribirFichero.write("Por el ");
+			escribirFichero.write(cliente.toString());
 			escribirFichero.newLine();
 			escribirFichero.write("Que incluye: ");
 			escribirFichero.newLine();
