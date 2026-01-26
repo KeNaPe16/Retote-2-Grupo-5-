@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import modelo.Cliente;
 import modelo.Pelicula;
+import modelo.Sala;
 import modelo.Sesion;
 
 public class ControladorBD {
@@ -140,5 +141,25 @@ public class ControladorBD {
 			e.printStackTrace();
 		}
 		return sesiones;
+	}
+
+	public String datosSala(int ID_Sala) {
+		String query = "SELECT Nombre FROM Sala where ID_Sala = " + ID_Sala;
+		String nombreSala = "mal";
+		try {
+			Statement consulta = conexion.createStatement();
+			ResultSet resultado = consulta.executeQuery(query);
+
+			while (resultado.next()) {
+				nombreSala = resultado.getString(1);
+
+			}
+
+			consulta.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nombreSala;
 	}
 }
