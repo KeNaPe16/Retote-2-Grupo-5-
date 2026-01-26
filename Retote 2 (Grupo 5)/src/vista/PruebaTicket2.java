@@ -49,7 +49,7 @@ public class PruebaTicket2 {
  * 
  * Muestra ticket por cada Compra, Entradas y Cliente
  * 
- * @param compra >>> Número de compras realizada del cliente con descuento de 20%.
+ * @param compra >>> Número de compras realizada del cliente con descuento de 20% o 30%.
  * @param entradas >>> Número de entradas para la sesión de pelicula seleccionada.
  * @param cliente >>> Datos del cliente: DNI, Email y Nombre.
  */
