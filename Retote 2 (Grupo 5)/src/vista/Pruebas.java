@@ -110,7 +110,8 @@ public class Pruebas {
 	 * @param descuento
 	 */
 	public void juntarDatos(ControladorBD controladorBD, Controlador controladorES, ControladorFicheros controladorFi,
-			ArrayList<Integer> partesEntrada, Timestamp fecha_hora, Cliente cliente, int precio_Compra, int descuento) {
+			ArrayList<Integer> partesEntrada, ArrayList<Double> preciosEntrada, Timestamp fecha_hora, Cliente cliente,
+			int precio_Compra, int descuento) {
 
 		int ultimoIDCompra = controladorBD.datosUltimoIDCompra() + 1;
 		int ultimoIDEntrada = controladorBD.datosUltimoIDEntrada();
@@ -120,7 +121,8 @@ public class Pruebas {
 		String dniCliente = cliente.getDNI();
 
 		compraJuntada = crearCompra(compraJuntada, ultimoIDCompra, dniCliente, descuento, precio_Compra, fecha_hora);
-		listaEntradasJuntada = crearlistaEntrada(listaEntradasJuntada, partesEntrada, ultimoIDEntrada, ultimoIDCompra);
+		listaEntradasJuntada = crearlistaEntrada(listaEntradasJuntada, partesEntrada, preciosEntrada, ultimoIDEntrada,
+				ultimoIDCompra);
 		grabarCompra(controladorBD, controladorES, controladorFi, compraJuntada, listaEntradasJuntada, cliente);
 	}
 
@@ -158,18 +160,19 @@ public class Pruebas {
 	 *         haber mas de una compra.
 	 */
 	public ArrayList<Entrada> crearlistaEntrada(ArrayList<Entrada> listaEntradasJuntada,
-			ArrayList<Integer> partesEntrada, int ultimoIDEntrada, int ultimoIDCompra) {
-		int contador = 1;
-		for (int i = 0; i < partesEntrada.size(); i += 4) {// 0-Precio 1-Descuento 2-Personas 3-Sesion
+			ArrayList<Integer> partesEntrada, ArrayList<Double> preciosEntrada, int ultimoIDEntrada,
+			int ultimoIDCompra) {
+		int contador = 0;
+		for (int j = 0; j < preciosEntrada.size(); j++) {// 0-Descuento 1-Personas 2-Sesion
 			Entrada nuevaEntrada = new Entrada();
-			nuevaEntrada.setId_Entrada(ultimoIDEntrada + contador);
-			nuevaEntrada.setPrecio_Entrada(partesEntrada.get(i));
-			nuevaEntrada.setDescuento(partesEntrada.get(i + 1));
-			nuevaEntrada.setNumero_Personas(partesEntrada.get(i + 2));
-			nuevaEntrada.setId_Sesion(partesEntrada.get(i + 3));
+			nuevaEntrada.setId_Entrada(ultimoIDEntrada + j + 1);
+			nuevaEntrada.setPrecio_Entrada(preciosEntrada.get(j));
+			nuevaEntrada.setDescuento(partesEntrada.get(contador));
+			nuevaEntrada.setNumero_Personas(partesEntrada.get(contador + 1));
+			nuevaEntrada.setId_Sesion(partesEntrada.get(contador + 2));
 			nuevaEntrada.setId_Compra(ultimoIDCompra);
 			listaEntradasJuntada.add(nuevaEntrada);
-			contador++;
+			contador += 3;
 		}
 		return listaEntradasJuntada;
 	}
