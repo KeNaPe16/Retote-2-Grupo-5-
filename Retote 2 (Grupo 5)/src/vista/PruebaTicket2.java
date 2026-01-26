@@ -21,7 +21,14 @@ public class PruebaTicket2 {
 		prueba.pruebaDatos(controladorBD, controladorES);
 
 	}
-
+	
+/**
+ * 
+ * Método prueba de datos por cada entrada es comprada dependiendo de cuántos clientes
+ * 
+ * @param controladorBD >>> Controlador base de datos CINE_RETO
+ * @param controladorES >>> Controlador entrada y salida
+ */
 	public void pruebaDatos(ControladorBD controladorBD, Controlador controladorES) {
 
 		Timestamp fecha_hora = new Timestamp(System.currentTimeMillis());
@@ -37,7 +44,15 @@ public class PruebaTicket2 {
 		mostrarTicket(compra,entradas,cliente);
 
 	}
-
+	
+/**
+ * 
+ * Muestra ticket por cada Compra, Entradas y Cliente
+ * 
+ * @param compra >>> Número de compras realizada del cliente con descuento de 20%.
+ * @param entradas >>> Número de entradas para la sesión de pelicula seleccionada.
+ * @param cliente >>> Datos del cliente: DNI, Email y Nombre.
+ */
 	public void mostrarTicket(Compra compra, ArrayList<Entrada> entradas, Cliente cliente) {
 
 		System.out.println("-----------------------------------------------------");
