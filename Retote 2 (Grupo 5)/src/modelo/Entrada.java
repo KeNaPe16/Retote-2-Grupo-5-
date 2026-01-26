@@ -2,9 +2,11 @@ package modelo;
 
 public class Entrada {
 
-	private int id_Entrada, precio_Entrada, descuento, numero_Personas, id_Sesion, id_Compra;
+	private int id_Entrada; 
+	private double precio_Entrada; 
+	private int descuento, numero_Personas, id_Sesion, id_Compra;
 
-	public Entrada(int id_Entrada, int precio_Entrada, int descuento, int numero_Personas, int id_Sesion,
+	public Entrada(int id_Entrada, double precio_Entrada, int descuento, int numero_Personas, int id_Sesion,
 			int id_Compra) {
 		this.id_Entrada = id_Entrada;
 		this.precio_Entrada = precio_Entrada;
@@ -26,11 +28,11 @@ public class Entrada {
 		this.id_Entrada = id_Entrada;
 	}
 
-	public int getPrecio_Entrada() {
+	public double getPrecio_Entrada() {
 		return precio_Entrada;
 	}
 
-	public void setPrecio_Entrada(int precio_Entrada) {
+	public void setPrecio_Entrada(double precio_Entrada) {
 		this.precio_Entrada = precio_Entrada;
 	}
 
@@ -68,9 +70,8 @@ public class Entrada {
 
 	@Override
 	public String toString() {
-		return "Entrada [id_Entrada=" + id_Entrada + ", precio_Entrada=" + precio_Entrada + ", descuento=" + descuento
-				+ ", numero_Espectadores=" + numero_Personas + ", id_Sesion=" + id_Sesion + ", id_Compra=" + id_Compra
-				+ "]";
+		return "Entrada (numero: " + this.id_Entrada + ") para la sesion numero: " + this.id_Sesion + "\nValida para " + this.numero_Personas
+				+ " personas \nComprada por " + this.precio_Entrada + "€ con un descuento de " + this.descuento + "%";
 	}
 
 }

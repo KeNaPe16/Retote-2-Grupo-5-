@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import modelo.Cliente;
 
+
 public class ControladorBD {
 
 	private Connection conexion;
@@ -80,5 +81,45 @@ public class ControladorBD {
 			e.printStackTrace();
 		}
 		return clientes;
+	}
+
+	public int datosUltimoIDCompra() {
+		String query = "SELECT ID_Compra FROM Compra ORDER BY ID_Compra DESC limit 1";
+		int id_Compra = -1;
+		try {
+			Statement consulta = conexion.createStatement();
+			ResultSet resultado = consulta.executeQuery(query);
+
+			while (resultado.next()) {
+				id_Compra = resultado.getInt(1);
+
+			}
+
+			consulta.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id_Compra;
+	}
+
+	public int datosUltimoIDEntrada() {
+		String query = "SELECT ID_Entrada FROM Entrada ORDER BY ID_Entrada DESC limit 1";
+		int id_Sesion = -1;
+		try {
+			Statement consulta = conexion.createStatement();
+			ResultSet resultado = consulta.executeQuery(query);
+
+			while (resultado.next()) {
+				id_Sesion = resultado.getInt(1);
+
+			}
+
+			consulta.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id_Sesion;
 	}
 }

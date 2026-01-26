@@ -7,10 +7,12 @@ public class Sesion {
 	private int id_Sesion;
 	private Time hora_Inicio, hora_Fin;
 	private String fecha;
-	private int numero_Espectadores, precio_Sesion, id_Sala, id_Pelicula;
+	private int numero_Espectadores;
+	private double precio_Sesion;
+	private int id_Sala, id_Pelicula;
 
 	public Sesion(int id_Sesion, Time hora_Inicio, Time hora_Fin, String fecha, int numero_Espectadores,
-			int precio_Sesion, int id_Sala, int id_Pelicula) {
+			double precio_Sesion, int id_Sala, int id_Pelicula) {
 		this.id_Sesion = id_Sesion;
 		this.hora_Inicio = hora_Inicio;
 		this.hora_Fin = hora_Fin;
@@ -65,11 +67,11 @@ public class Sesion {
 		this.numero_Espectadores = numero_Espectadores;
 	}
 
-	public int getPrecio_Sesion() {
+	public double getPrecio_Sesion() {
 		return precio_Sesion;
 	}
 
-	public void setPrecio_Sesion(int precio_Sesion) {
+	public void setPrecio_Sesion(double precio_Sesion) {
 		this.precio_Sesion = precio_Sesion;
 	}
 

@@ -4,9 +4,9 @@ public class Pelicula {
 
 	private int id_Pelicula, duracion;
 	private String nombre;
-	private int precio_Base;
+	private double precio_Base;
 
-	public Pelicula(int id_Pelicula, int duracion, String nombre, int precio_Base) {
+	public Pelicula(int id_Pelicula, int duracion, String nombre, double precio_Base) {
 		this.id_Pelicula = id_Pelicula;
 		this.duracion = duracion;
 		this.nombre = nombre;
@@ -41,11 +41,11 @@ public class Pelicula {
 		this.nombre = nombre;
 	}
 
-	public int getPrecio_Base() {
+	public double getPrecio_Base() {
 		return precio_Base;
 	}
 
-	public void setPrecio_Base(int precio_Base) {
+	public void setPrecio_Base(double precio_Base) {
 		this.precio_Base = precio_Base;
 	}
 
