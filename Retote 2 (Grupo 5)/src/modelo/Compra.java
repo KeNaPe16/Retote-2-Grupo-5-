@@ -4,12 +4,13 @@ import java.sql.Timestamp;
 
 public class Compra {
 
-	private int id_Compra, precio_Compra;
+	private int id_Compra; 
+	private double precio_Compra;
 	private Timestamp fecha_hora;
 	private int descuento;
 	private String dni;
 
-	public Compra(int id_Compra, int precio_Compra, Timestamp fecha_hora, int descuento, String dni) {
+	public Compra(int id_Compra, double precio_Compra, Timestamp fecha_hora, int descuento, String dni) {
 		this.id_Compra = id_Compra;
 		this.precio_Compra = precio_Compra;
 		this.fecha_hora = fecha_hora;
@@ -29,11 +30,11 @@ public class Compra {
 		this.id_Compra = id_Compra;
 	}
 
-	public int getPrecio_Compra() {
+	public double getPrecio_Compra() {
 		return precio_Compra;
 	}
 
-	public void setPrecio_Compra(int precio_Compra) {
+	public void setPrecio_Compra(double precio_Compra) {
 		this.precio_Compra = precio_Compra;
 	}
 
