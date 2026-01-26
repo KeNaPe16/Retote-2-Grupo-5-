@@ -5,10 +5,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import modelo.Cliente;
-
+import modelo.Pelicula;
+import modelo.Sesion;
 
 public class ControladorBD {
 
@@ -121,5 +123,82 @@ public class ControladorBD {
 			e.printStackTrace();
 		}
 		return id_Sesion;
+	}
+
+	public ArrayList<Pelicula> datosPelicula() {
+		String query = "SELECT p.id_pelicula, p.duracion, p.Nombre_Pelicula, p.Precio_Base FROM Pelicula p INNER JOIN Sesion s on p.ID_Pelicula = s.ID_Pelicula GROUP BY p.ID_Pelicula ORDER BY s.Fecha";
+		ArrayList<Pelicula> peliculas = new ArrayList<Pelicula>();
+
+		try {
+			Statement consulta = conexion.createStatement();
+			ResultSet resultado = consulta.executeQuery(query);
+
+			while (resultado.next()) {
+				int id_pelicula = resultado.getInt(1);
+				int duracion = resultado.getInt(2);
+				String nombre = resultado.getString(3);
+				int precio_base = resultado.getInt(4);
+
+				Pelicula nuevaPelicula = new Pelicula(id_pelicula, duracion, nombre, precio_base);
+				peliculas.add(nuevaPelicula);
+			}
+
+			consulta.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return peliculas;
+	}
+
+	public ArrayList<Sesion> datosSesion_Fecha(int ID_Pelicula) {
+		String query = "SELECT ID_Sesion, Hora_Inicio, Hora_Fin, Fecha, Numero_Espectadores_Actuales, Precio_Sesion, ID_Sala, ID_Pelicula\r\n"
+				+ "FROM Sesion where ID_Pelicula = " + ID_Pelicula + " ORDER BY Fecha ASC";
+		ArrayList<Sesion> sesiones = new ArrayList<Sesion>();
+
+		try {
+			Statement consulta = conexion.createStatement();
+			ResultSet resultado = consulta.executeQuery(query);
+
+			while (resultado.next()) {
+				int ID_Sesion = resultado.getInt(1);
+				Time Hora_Inicio = resultado.getTime(2);
+				Time Hora_Fin = resultado.getTime(3);
+				String Fecha = resultado.getString(4);
+				int Numero_Espectadores_Actuales = resultado.getInt(5);
+				int Precio_Sesion = resultado.getInt(6);
+				int ID_Sala = resultado.getInt(7);
+
+				Sesion nuevaSesion = new Sesion(ID_Sesion, Hora_Inicio, Hora_Fin, Fecha, Numero_Espectadores_Actuales,
+						Precio_Sesion, ID_Sala, ID_Pelicula);
+				sesiones.add(nuevaSesion);
+			}
+
+			consulta.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sesiones;
+	}
+
+	public String datosSala(int ID_Sala) {
+		String query = "SELECT Nombre FROM Sala where ID_Sala = " + ID_Sala;
+		String nombreSala = "mal";
+		try {
+			Statement consulta = conexion.createStatement();
+			ResultSet resultado = consulta.executeQuery(query);
+
+			while (resultado.next()) {
+				nombreSala = resultado.getString(1);
+
+			}
+
+			consulta.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nombreSala;
 	}
 }
