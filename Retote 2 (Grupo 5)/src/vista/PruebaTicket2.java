@@ -11,13 +11,13 @@ import modelo.Cliente;
 import modelo.Compra;
 import modelo.Entrada;
 
-public class PruebaTicket {
+public class PruebaTicket2 {
 //Compra compraAGrabar, ArrayList<Entrada> entradasAGrabar, Cliente cliente
 
 	public static void main(String[] args) {
 		Controlador controladorES = new Controlador();
 		ControladorBD controladorBD = new ControladorBD("cine_reto");
-		PruebaTicket prueba = new PruebaTicket();
+		PruebaTicket2 prueba = new PruebaTicket2();
 		prueba.pruebaDatos(controladorBD, controladorES);
 
 	}
