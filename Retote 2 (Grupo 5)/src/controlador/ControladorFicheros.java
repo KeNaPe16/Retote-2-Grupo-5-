@@ -1,10 +1,6 @@
 package controlador;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +31,8 @@ public class ControladorFicheros {
 			Cliente cliente) {
 
 		try {
-			BufferedWriter escribirFichero = new BufferedWriter(new FileWriter(ruta + nombreFichero + compra.getFecha_hora().getTime()));
+			BufferedWriter escribirFichero = new BufferedWriter(
+					new FileWriter(ruta + nombreFichero + compra.getFecha_hora().getTime()));
 			escribirFichero.write("-------------------");
 			escribirFichero.newLine();
 			escribirFichero.write(compra.toString());
