@@ -393,9 +393,8 @@ public class Principal {
 	 *                         necesaria de las películas, como: su id, su nombre,
 	 *                         su precio y su duración.
 	 */
-	public void ObtenerDatos(ControladorBD controladorBD, Controlador controladorES,
-			ArrayList<Sesion> sesionesElegidas, ArrayList<Integer> NumEspectadores, ArrayList<Pelicula> peliculas,
-			Cliente usuario) {
+	public void ObtenerDatos(ControladorBD controladorBD, Controlador controladorES, ArrayList<Sesion> sesionesElegidas,
+			ArrayList<Integer> NumEspectadores, ArrayList<Pelicula> peliculas, Cliente usuario) {
 		System.out.println("Confirme los datos de la compra.");
 		ArrayList<String> nombresSala = new ArrayList<String>();
 		for (int i = 0; i < sesionesElegidas.size(); i++) {
@@ -525,14 +524,12 @@ public class Principal {
 		System.out.println("\nPrecio total con descuento: ");
 		if (peliculasElegidas.size() == 2) {
 			descuento = 20;
-			precioDescuento = DescuentoVeinte(controladorBD, controladorES, sesionesElegidas, numEspectadores,
-					nombresSala, peliculas, peliculasElegidas, i, precioDescuento);
+			precioDescuento = DescuentoVeinte(controladorES, sesionesElegidas, numEspectadores, i, precioDescuento);
 			System.out.print("\n" + precioDescuento + "(%20)");
 
 		} else if (peliculasElegidas.size() + 1 > 2) {
 			descuento = 30;
-			precioDescuento = DescuentoTreinta(controladorBD, controladorES, sesionesElegidas, numEspectadores,
-					nombresSala, peliculas, peliculasElegidas, i, precioDescuento);
+			precioDescuento = DescuentoTreinta(controladorES, sesionesElegidas, numEspectadores, i, precioDescuento);
 			System.out.print("\n" + precioDescuento + "(%30)\n");
 
 		} else {
@@ -571,14 +568,13 @@ public class Principal {
 	 * 
 	 * @param precioDescuento   --> El precio con descuento.
 	 */
-	public double DescuentoVeinte(ControladorBD controladorBD, Controlador controladorES,
-			ArrayList<Sesion> sesionesElegidas, ArrayList<Integer> numEspectadores, ArrayList<String> nombresSala,
-			ArrayList<Pelicula> peliculas, ArrayList<String> peliculasElegidas, int i, double precioDescuento) {
+	public double DescuentoVeinte(Controlador controladorES, ArrayList<Sesion> sesionesElegidas,
+			ArrayList<Integer> numEspectadores, int i, double precioDescuento) {
+
 		precioDescuento = (sesionesElegidas.get(i).getPrecio_Sesion() * numEspectadores.get(i)
 				- (sesionesElegidas.get(i).getPrecio_Sesion() * numEspectadores.get(i)) * 0.2);
 		controladorES.redondear(precioDescuento, 2);
 		return precioDescuento;
-
 	}
 
 	/**
@@ -609,13 +605,14 @@ public class Principal {
 	 * 
 	 * @param precioDescuento   --> El precio con descuento.
 	 */
-	public double DescuentoTreinta(ControladorBD controladorBD, Controlador controladorES,
-			ArrayList<Sesion> sesionesElegidas, ArrayList<Integer> numEspectadores, ArrayList<String> nombresSala,
-			ArrayList<Pelicula> peliculas, ArrayList<String> peliculasElegidas, int i, double precioDescuento) {
+	public double DescuentoTreinta(Controlador controladorES, ArrayList<Sesion> sesionesElegidas,
+			ArrayList<Integer> numEspectadores, int i, double precioDescuento) {
+
 		precioDescuento = (sesionesElegidas.get(i).getPrecio_Sesion() * numEspectadores.get(i)
 				- (sesionesElegidas.get(i).getPrecio_Sesion() * numEspectadores.get(i)) * 0.3);
 		controladorES.redondear(precioDescuento, 2);
 		return precioDescuento;
+
 	}
 
 	/**
