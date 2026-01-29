@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import controlador.ControladorBD;
@@ -16,9 +15,6 @@ public class ControladorBDTest {
 
 	private static ControladorBD controlador;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
 
 	/**
 	 * Se comprueba la generacion del controlador correcto
