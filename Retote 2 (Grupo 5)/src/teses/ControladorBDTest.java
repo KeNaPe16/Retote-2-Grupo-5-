@@ -211,6 +211,9 @@ public class ControladorBDTest {
 		}
 	}
 
+	/**
+	 * Se comprueba que los datos obligatorios obtenidos sean validos
+	 */
 	@Test
 	public void testDatosPeliculaCorrectos() {
 		controlador = new ControladorBD("cine_reto");
@@ -232,17 +235,22 @@ public class ControladorBDTest {
 		ArrayList<Sesion> sesiones1 = controlador.datosSesion_Fecha(1);
 		ArrayList<Sesion> sesiones2 = controlador.datosSesion_Fecha(7);
 
-		if (sesiones1.size() != 1 || sesiones2.size() != 4) {
+		if (sesiones1.size() != 1) {
 			fail("Se esperaban 1 sesion");
+		} else if (sesiones2.size() != 4) {
+			fail("Se espetaban 4 sesiones");
 		}
 	}
 
+	/**
+	 * Se comprueba que los datos obligatorios conseguidos sean correctos
+	 */
 	@Test
 	public void testDatosSesionFechaCorrectos() {
 		controlador = new ControladorBD("cine_reto");
 		controlador.iniciarConexion();
 		ArrayList<Sesion> sesiones = controlador.datosSesion_Fecha(1);
-		//|| sesiones.getFirst().getHora_Fin() != null
+		// || sesiones.getFirst().getHora_Fin() != null
 //		|| sesiones.getFirst().getHora_Inicio() != null
 		if (sesiones.getFirst().getFecha().isBlank() || sesiones.getFirst().getId_Pelicula() < 0
 				|| sesiones.getFirst().getId_Sala() < 0 || sesiones.getFirst().getId_Sesion() < 0
@@ -251,6 +259,32 @@ public class ControladorBDTest {
 		}
 	}
 
-//	datossala
+	/**
+	 * Se comprueba que la sala conseguida no este vacia (para que sea valido)
+	 */
+	@Test
+	public void testDatosSala() {
+		controlador = new ControladorBD("cine_reto");
+		controlador.iniciarConexion();
+		String sala = controlador.datosSala(0);
+
+		if (sala.isBlank()) {
+			fail("Se esperaba que la sala no estubiese vacia");
+		}
+	}
+
+	/**
+	 * Se comprueba que el dato conseguido por la consulta sea correcto
+	 */
+	@Test
+	public void testDatosSalaCorrectos() {
+		controlador = new ControladorBD("cine_reto");
+		controlador.iniciarConexion();
+		String sala = controlador.datosSala(8);
+
+		if (!sala.equals("Sala 8 - 4DX")) {
+			fail("Se esperaba que la sala no estubiese vacia");
+		}
+	}
 
 }
