@@ -79,15 +79,40 @@ public class Comprador {
 	 */
 	public void SeleccionarPeli(ControladorBD controladorBD, Controlador controladorES, ArrayList<Pelicula> peliculas,
 			ArrayList<Sesion> sesionesElegidas, ArrayList<Integer> NumEspectadores, Cliente usuario) {
-		System.out.println("");
+		boolean encontrado = false;
+		Pelicula peliculaSeleccionada = null;
+		while (encontrado == false) {
+			System.out.println("Ingrese el número de la película o el nombre:");
 
-		int opcion = controladorES.pedirNumeroEnteroRango(1, peliculas.size());
+			String input = controladorES.pedirString();
 
-		System.out.println("Has escogido la opción " + opcion + ": " + peliculas.get(opcion - 1).getNombre());
+			// Intentamos como número
+			try {
+				int opcion = Integer.parseInt(input);
+				if (opcion >= 1 && opcion <= peliculas.size()) {
+					peliculaSeleccionada = peliculas.get(opcion - 1);
+					encontrado = true;
+				} else {
+					System.out.println("Número fuera de rango.");
+				}
+			} catch (NumberFormatException e) {
+				// Si no es número, buscamos nombre
+				for (int i = 0; i < peliculas.size(); i++) {
+					if (peliculas.get(i).getNombre().equalsIgnoreCase(input)) {
+						peliculaSeleccionada = peliculas.get(i);
+						encontrado = true;
+					}
+				}
 
-		opcion = peliculas.get(opcion - 1).getId_Pelicula();
-		MostrarFecha(controladorBD, controladorES, opcion, sesionesElegidas, NumEspectadores, peliculas, usuario);
+				if (peliculaSeleccionada == null) {
+					System.out.println("No se encontró ninguna película con ese nombre.");
+				}
+			}
+		}
+		System.out.println("Has escogido: " + peliculaSeleccionada.getNombre());
 
+		int idPelicula = peliculaSeleccionada.getId_Pelicula();
+		MostrarFecha(controladorBD, controladorES, idPelicula, sesionesElegidas, NumEspectadores, peliculas, usuario);
 	}
 
 	/**
