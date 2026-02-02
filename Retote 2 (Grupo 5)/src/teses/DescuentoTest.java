@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import controlador.Controlador;
 import modelo.Sesion;
+import vista.Comprador;
 import vista.Principal;
 
 public class DescuentoTest {
@@ -22,7 +23,7 @@ public class DescuentoTest {
 	 */
 	@Test
 	public void testDescuentoVeinteBien() {
-		Principal principal = new Principal();
+		Comprador principal = new Comprador();
 		Controlador controladorES = new Controlador();
 		ArrayList<Sesion> sesionesElegidas = new ArrayList<Sesion>();
 		ArrayList<Integer> numEspectadores = new ArrayList<Integer>();
@@ -40,7 +41,7 @@ public class DescuentoTest {
 	 */
 	@Test
 	public void testDescuentoTreintaBien() {
-		Principal principal = new Principal();
+		Comprador principal = new Comprador();
 		Controlador controladorES = new Controlador();
 		ArrayList<Sesion> sesionesElegidas = new ArrayList<Sesion>();
 		ArrayList<Integer> numEspectadores = new ArrayList<Integer>();
@@ -59,7 +60,7 @@ public class DescuentoTest {
 	 */
 	@Test
 	public void testDescuentoVeinteCeroEspectadores() {
-		Principal principal = new Principal();
+		Comprador principal = new Comprador();
 		Controlador controladorES = new Controlador();
 		ArrayList<Sesion> sesionesElegidas = new ArrayList<Sesion>();
 		ArrayList<Integer> numEspectadores = new ArrayList<Integer>();
@@ -79,7 +80,7 @@ public class DescuentoTest {
 	 */
 	@Test
 	public void testDescuentoTreintaCeroEspectadores() {
-		Principal principal = new Principal();
+		Comprador principal = new Comprador();
 		Controlador controladorES = new Controlador();
 		ArrayList<Sesion> sesionesElegidas = new ArrayList<Sesion>();
 		ArrayList<Integer> numEspectadores = new ArrayList<Integer>();
@@ -98,7 +99,7 @@ public class DescuentoTest {
 	 */
 	@Test(expected = IndexOutOfBoundsException.class)
 	public void testIndiceFueraDeRango() {
-		Principal principal = new Principal();
+		Comprador principal = new Comprador();
 		Controlador controladorES = new Controlador();
 		ArrayList<Sesion> sesiones = new ArrayList<>();
 		ArrayList<Integer> espectadores = new ArrayList<>();
@@ -114,7 +115,7 @@ public class DescuentoTest {
 	 */
 	@Test
 	public void testRedondeoNoAplicado() {
-		Principal principal = new Principal();
+		Comprador principal = new Comprador();
 		Controlador controladorES = new Controlador();
 		ArrayList<Sesion> sesiones = new ArrayList<>();
 		ArrayList<Integer> espectadores = new ArrayList<>();
@@ -132,7 +133,7 @@ public class DescuentoTest {
 	 */
 	@Test
 	public void testDescuentoIndiceUno() {
-		Principal principal = new Principal();
+		Comprador principal = new Comprador();
 		Controlador controladorES = new Controlador();
 		ArrayList<Sesion> sesiones = new ArrayList<>();
 		ArrayList<Integer> espectadores = new ArrayList<>();
@@ -154,7 +155,7 @@ public class DescuentoTest {
 	 */
 	@Test
 	public void testDescuentoTreintaPrecioDecimal() {
-		Principal principal = new Principal();
+		Comprador principal = new Comprador();
 		Controlador controladorES = new Controlador();
 		ArrayList<Sesion> sesiones = new ArrayList<>();
 		ArrayList<Integer> espectadores = new ArrayList<>();
@@ -174,7 +175,7 @@ public class DescuentoTest {
 	 */
 	@Test
 	public void testDescuentoVeintePrecioDecimal() {
-		Principal principal = new Principal();
+		Comprador principal = new Comprador();
 		Controlador controladorES = new Controlador();
 		ArrayList<Sesion> sesiones = new ArrayList<>();
 		ArrayList<Integer> espectadores = new ArrayList<>();
