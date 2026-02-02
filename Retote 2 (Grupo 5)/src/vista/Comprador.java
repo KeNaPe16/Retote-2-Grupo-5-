@@ -393,7 +393,7 @@ public class Comprador {
 			ArrayList<Sesion> sesionesElegidas, ArrayList<Integer> numEspectadores, ArrayList<String> nombresSala,
 			ArrayList<Pelicula> peliculas, ArrayList<String> peliculasElegidas, Cliente usuario) {
 		int descuento = 0;
-
+		double total = 0;
 		for (int i = 0; i < sesionesElegidas.size(); i++) {
 			System.out.println("\n----------------\n");
 			System.out.println("ENTRADA " + (i + 1) + " para PELÍCULA " + (i + 1) + ": " + peliculasElegidas.get(i));
@@ -407,7 +407,11 @@ public class Comprador {
 
 			descuento = Descuentos(controladorBD, controladorES, sesionesElegidas, numEspectadores, nombresSala,
 					peliculas, peliculasElegidas, descuento, i);
+			total += sesionesElegidas.get(i).getPrecio_Sesion() * numEspectadores.get(i);
 		}
+		total = total - (total * descuento / 100);
+		System.out.println("\nPrecio total de la compra: " + total);
+		System.out.println();
 		inicio.confirmarCompra(controladorBD, controladorES, descuento, numEspectadores, sesionesElegidas, usuario);
 	}
 
